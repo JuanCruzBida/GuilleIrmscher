@@ -1,0 +1,68 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: oklch(var(--background));
+  --color-foreground: oklch(var(--foreground));
+  --color-accent: oklch(var(--accent));
+  --color-accent-hover: oklch(var(--accent-hover));
+  --color-muted: oklch(var(--muted));
+
+  --font-sans: "Outfit", "Inter", system-ui, sans-serif;
+  --font-display: "Inter", sans-serif;
+
+  --spacing-xs: calc(0.25rem * 1);
+  --spacing-sm: calc(0.25rem * 2);
+  --spacing-md: calc(0.25rem * 4);
+  --spacing-lg: calc(0.25rem * 8);
+  --spacing-xl: calc(0.25rem * 16);
+  --spacing-2xl: calc(0.25rem * 32);
+}
+
+@layer base {
+  :root {
+    /* Dark Mode Absolute */
+    --background: 0.15 0.02 250;
+    --foreground: 0.98 0 0;
+    --accent: 0.85 0.21 95;
+    --accent-hover: 0.88 0.24 90;
+    --muted: 0.60 0.02 250;
+    
+    --font-sans: "Outfit";
+    --font-display: "Inter";
+  }
+
+  body {
+    background-color: oklch(var(--background));
+    color: oklch(var(--foreground));
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    text-wrap: balance;
+  }
+}
+
+/* Base styles for Lenis */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
