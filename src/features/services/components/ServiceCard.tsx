@@ -113,8 +113,8 @@ export function ServiceCard({
       </Typography>
 
       {image && (
-        <div className="absolute inset-0 z-0 overflow-hidden mix-blend-multiply opacity-50 transition-all duration-700 ease-out group-hover:scale-105 group-hover:mix-blend-normal group-hover:opacity-80">
-           <Image src={image} fill alt={title} className="object-cover" />
+        <div className="absolute inset-0 z-0 overflow-hidden mix-blend-overlay opacity-20 transition-all duration-700 ease-out group-hover:scale-105 group-hover:opacity-30">
+           <Image src={image} fill alt={title} className="object-cover grayscale pointer-events-none" />
         </div>
       )}
     </div>

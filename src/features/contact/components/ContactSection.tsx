@@ -80,8 +80,8 @@ export function ContactSection() {
              <Typography variant="body" className="mb-8 text-sm text-muted-foreground">
                Todas las consultas son respondidas en menos de 24 horas hábiles. La seguridad de tu obra es mi compromiso personal.
              </Typography>
-             <Button variant="terminal" className="w-fit">
-                Enviar un Mail
+             <Button variant="terminal" className="w-fit" asChild>
+                <a href="mailto:ghi779@gmail.com">ghi779@gmail.com</a>
              </Button>
              </div>
           </div>

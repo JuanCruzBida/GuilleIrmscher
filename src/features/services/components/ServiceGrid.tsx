@@ -1,50 +1,79 @@
 "use client";
 
-import React from "react";
+import React, { useRef } from "react";
 import { ServiceCard } from "./ServiceCard";
 import { Package, Truck, Move, ArrowRight, ShieldCheck } from "lucide-react";
 import { Typography } from "@/shared/components/ui/Typography";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 const services = [
   {
-    title: "Recepción",
-    description: "Control de calidad y embalaje de alta seguridad para obras de arte.",
+    title: "Recepción en Taller",
+    description: "Recepción de obra en nuestro taller (La Paternal) y envío coordinado al destino final en CABA.",
     Icon: Package,
-    className: "col-span-12 md:col-span-8 lg:col-span-6 row-span-2",
+    className: "service-card-anim col-span-12 md:col-span-8 lg:col-span-6 row-span-2",
   },
   {
-    title: "Traslado",
-    description: "Movimiento seguro y especializado de piezas delicadas.",
+    title: "Retiro en Terminales",
+    description: "Retiro desde expresos y encomiendas, con entrega en CABA (retiro sin cargo en expresos zonales).",
     Icon: Truck,
-    className: "col-span-12 md:col-span-4 lg:col-span-3",
+    className: "service-card-anim col-span-12 md:col-span-4 lg:col-span-3",
   },
   {
-    title: "Envío",
-    description: "Coordinación y preparación para despachos nacionales e internacionales.",
-    Icon: Move,
-    className: "col-span-12 md:col-span-4 lg:col-span-3",
-  },
-  {
-    title: "Retiro",
-    description: "Retiro programado en talleres y galerías.",
+    title: "Retiro, Embalaje y Retorno",
+    description: "Retiramos de galerías o salones, embalamos de forma 100% segura y despachamos por expreso hacia el interior.",
     Icon: ArrowRight,
-    className: "col-span-12 md:col-span-4 lg:col-span-3",
+    className: "service-card-anim col-span-12 md:col-span-4 lg:col-span-3",
   },
   {
-    title: "Guarda",
-    description: "Espacios acondicionados en nuestro taller para el resguardo temporal de tus obras.",
+    title: "Embastado Integral",
+    description: "Recibimos la obra enrollada, la embastamos en partnership con Talleres Turk, y luego la re-enviamos en tubo rígido.",
+    Icon: Move,
+    className: "service-card-anim col-span-12 md:col-span-4 lg:col-span-3",
+  },
+  {
+    title: "Guarda Temporal",
+    description: "Servicio de depósito seguro en taller (desde 15 días hasta 6 meses) para coordinar perfectamente los tiempos de logística.",
     Icon: ShieldCheck,
     variant: "accent" as const,
     image: "/assets/images/servicio_guarda.png",
-    className: "col-span-12 md:col-span-8 lg:col-span-9",
+    className: "service-card-anim col-span-12 md:col-span-8 lg:col-span-9",
   },
 ];
 
 import Image from "next/image";
 
 export function ServiceGrid() {
+  const container = useRef<HTMLDivElement>(null);
+
+  useGSAP(
+    () => {
+      const cards = gsap.utils.toArray(".service-card-anim");
+      
+      gsap.from(cards, {
+        y: 100,
+        opacity: 0,
+        duration: 1.2,
+        stagger: 0.2,
+        ease: "power4.out",
+        scrollTrigger: {
+          trigger: container.current,
+          start: "top 80%",
+          once: true,
+        },
+      });
+    },
+    { scope: container }
+  );
+
   return (
-    <section id="servicios" className="px-6 lg:px-12 py-24 bg-background">
+    <section id="servicios" ref={container} className="px-6 lg:px-12 py-24 bg-background">
       <header className="mb-16 flex justify-between items-end">
         <div>
           <Typography variant="label" className="mb-2">

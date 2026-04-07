@@ -1,25 +1,65 @@
 "use client";
 
-import React from "react";
+import React, { useRef } from "react";
 import Image from "next/image";
 import { Typography } from "@/shared/components/ui/Typography";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 export function ValueProposition() {
+  const container = useRef<HTMLDivElement>(null);
+  const textContainer = useRef<HTMLDivElement>(null);
+  const imageContainer = useRef<HTMLDivElement>(null);
+
+  useGSAP(
+    () => {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: container.current,
+          start: "top 80%",
+          once: true,
+        },
+      });
+
+      tl.from(textContainer.current, {
+        y: 40,
+        opacity: 0,
+        duration: 1,
+        ease: "power4.out",
+      }).from(
+        imageContainer.current,
+        {
+          clipPath: "inset(100% 0% 0% 0%)",
+          scale: 1.1,
+          duration: 1.2,
+          ease: "power4.out",
+        },
+        "-=0.7"
+      );
+    },
+    { scope: container }
+  );
+
   return (
-    <section className="px-6 lg:px-12 py-24 bg-background">
+    <section ref={container} className="px-6 lg:px-12 py-24 bg-background">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center">
         {/* Abstract / Monolith Text */}
-        <div className="space-y-8 order-2 lg:order-1">
+        <div ref={textContainer} className="space-y-8 order-2 lg:order-1">
           <Typography variant="h2" className="text-foreground">
-            Cuidado Absoluto.
+            De un Artista para Artistas.
           </Typography>
           <Typography variant="body" className="text-muted-foreground leading-relaxed">
-            Nuestra filosofía es simple: la obra es la única protagonista. Nos encargamos de toda la complejidad logística, el embalaje técnico y el traslado con extrema precaución para que el artista y el coleccionista descansen en la certeza estructural de nuestro servicio.
+            Pensado para colegas que viven fuera de CABA y necesitan enviar sus obras a salones, premios y galerías. No se trata solo de un transporte: es el cuidado de las piezas como lo hace cada creador, garantizando que el trabajo llegue a destino y regrese sano a su lugar de origen.
           </Typography>
         </div>
 
         {/* Image Container with Structural Brutalism aesthetic */}
-        <div className="relative aspect-[4/3] w-full border border-white/10 order-1 lg:order-2 overflow-hidden bg-zinc-950">
+        <div ref={imageContainer} className="relative aspect-[4/3] w-full border border-white/10 order-1 lg:order-2 overflow-hidden bg-zinc-950">
           <Image
             src="/assets/images/propuestadevalor.png"
             alt="Cuidado y preservación de obras de arte"

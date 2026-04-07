@@ -24,21 +24,21 @@ export function Hero() {
         chars,
         {
           opacity: 0,
-          y: 20,
+          y: 40,
         },
         {
           opacity: 1,
           y: 0,
-          duration: 0.75,
-          stagger: 0.025,
-          ease: "power4.out",
+          duration: 1.2,
+          stagger: 0.03,
+          ease: "expo.out",
         }
       );
     },
     { scope: container }
   );
 
-  const headline = "Logística de Obras de Arte: Pensado por un artista para artistas.";
+  const headline = "Recepción, Envío y Guarda de Obras de Arte: ... Las obras siempre en manos de un artista ...";
 
   return (
     <section
